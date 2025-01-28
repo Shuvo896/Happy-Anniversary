@@ -49,51 +49,52 @@ body {
 
 /* Random image positions and sizes */
 .random-images img:nth-child(1) {
-    top: 9%;
+    top: 7%;
     left: 5%;
     width: 350px;
     height: auto;
 } 
 .random-images img:nth-child(2) {
-    top: 35%;
-    right: 8%;
+    bottom: 10%;
+    right: 7%;
     width: 360px;
     height: auto;
 }
 .random-images img:nth-child(3) {
     top: 40%;
-    left: 17%;
+    left: 19%;
     width: 230px;
     height: auto;
 }
 .random-images img:nth-child(4) {
-    top: 10%;
-    right: 17%;
-    width: 200px;
+    top: 7%;
+    right: 14%;
+    width: 250px;
     height: auto;
 }
 .random-images img:nth-child(5) {
-    bottom: 15%;
-    left: 10%;
-    width: 180px;
+    bottom: 10%;
+    left: 7%;
+    width: 240px;
     height: auto;
 }
 .random-images img:nth-child(6) {
-    bottom: 10%;
-    right: 15%;
-    width: 170px;
+    
+    top: 19%;
+    right: 2%;
+    width: 200px;
     height: auto;
 }
 .random-images img:nth-child(7) {
-    bottom: 30%;
+    bottom: 33%;
     left: 3%;
-    width: 140px;
+    width: 210px;
     height: auto;
 }
 .random-images img:nth-child(8) {
-    top: 5%;
-    right: 5%;
-    width: 160px;
+    top: 35%;
+    right: 18%;
+    width: 260px;
     height: auto;
 }
 
