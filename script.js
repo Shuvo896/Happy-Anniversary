@@ -4,6 +4,7 @@ let currentPlayer = "X";
 let gameActive = true;
 const cells = Array(9).fill(null);
 
+// Create the game board
 function createBoard() {
   board.innerHTML = "";
   cells.forEach((_, i) => {
@@ -15,6 +16,7 @@ function createBoard() {
   });
 }
 
+// Handle a player's move
 function handleCellClick(e) {
   const index = e.target.dataset.index;
   if (!gameActive || cells[index]) return;
@@ -23,23 +25,25 @@ function handleCellClick(e) {
   e.target.textContent = currentPlayer;
 
   if (checkWin(currentPlayer)) {
-    message.textContent = `${currentPlayer} wins!`;
-    gameActive = false;
-
-    // Trigger PDF download
-    setTimeout(() => {
-      const link = document.createElement("a");
-      link.href = "Note/us.pdf"; // Path to the PDF file in the 'Note' directory
-      link.download = "us.pdf"; // The name of the downloaded file
-      link.click();
-    }, 1000);
-
+    if (currentPlayer === "X") {
+      // If player X wins, redirect to index2.html
+      message.textContent = `${currentPlayer} wins! Redirecting...`;
+      gameActive = false;
+      setTimeout(() => {
+        window.location.href = "index2.html";
+      }, 1000);
+    } else {
+      // If player O wins, restart the game
+      message.textContent = `Player O wins! Restarting...`;
+      setTimeout(resetGame, 1000);
+    }
     return;
   }
 
   if (cells.every(cell => cell)) {
-    message.textContent = "It's a draw!";
-    gameActive = false;
+    // If it's a draw, restart the game
+    message.textContent = "It's a draw! Restarting...";
+    setTimeout(resetGame, 1000);
     return;
   }
 
@@ -49,6 +53,7 @@ function handleCellClick(e) {
   }
 }
 
+// Simulate the computer's move
 function computerMove() {
   const emptyCells = cells.map((cell, i) => (cell ? null : i)).filter(i => i !== null);
   const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
@@ -58,20 +63,23 @@ function computerMove() {
   cellElement.textContent = "O";
 
   if (checkWin("O")) {
-    message.textContent = "O wins!";
+    message.textContent = "Player O wins! Restarting...";
     gameActive = false;
+    setTimeout(resetGame, 1000);
     return;
   }
 
   if (cells.every(cell => cell)) {
-    message.textContent = "It's a draw!";
+    message.textContent = "It's a draw! Restarting...";
     gameActive = false;
+    setTimeout(resetGame, 1000);
     return;
   }
 
   currentPlayer = "X";
 }
 
+// Check for a winner
 function checkWin(player) {
   const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -79,9 +87,19 @@ function checkWin(player) {
     [0, 4, 8], [2, 4, 6]
   ];
 
-  return winningCombinations.some(combination => 
+  return winningCombinations.some(combination =>
     combination.every(index => cells[index] === player)
   );
 }
 
+// Reset the game state
+function resetGame() {
+  cells.fill(null);
+  currentPlayer = "X";
+  gameActive = true;
+  createBoard();
+  message.textContent = "New game started! Your turn.";
+}
+
+// Initialize the game
 createBoard();
